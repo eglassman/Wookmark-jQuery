@@ -19,8 +19,6 @@
   <!-- Global CSS for the page and tiles -->
   <link rel="stylesheet" href="../css/main.css">
     
-  <link rel="stylesheet" href="pygments.css" type="text/css" ></link>
-
   <!-- Specific CSS for the example -->
   <style>
     /**
@@ -53,12 +51,13 @@
     <div id="main" role="main">
 
       <ul id="tiles">
+          <!-- Hand-coded
         <li><img src="../lecture9/slide01.jpg"></li>
         <li><img src="../lecture9/slide02.jpg"></li>
           <li><img src="../lecture9/slide03.jpg"></li>
         <li><img src="../lecture9/slide04.jpg"></li>
           <li><img src="../lecture9/slide05.jpg"></li>
-        <li><img src="../lecture9/slide06.jpg"></li>
+        <li><img src="../lecture9/slide06.jpg"></li>-->
         <!-- These are our grid blocks
         
         <li><img src="../sample-images/image_7.jpg"><p>7</p></li>
@@ -110,22 +109,33 @@
   <script type="text/javascript">
     (function ($){
         
+        var slides = [ "../lecture9/slide01.jpg", "../lecture9/slide02.jpg", "../lecture9/slide03.jpg", "../lecture9/slide04.jpg", "../lecture9/slide05.jpg" ];
+        
+
         function click(){
   // Ignore the click event if it was suppressed
   if (d3.event.defaultPrevented) return;
 
+            console.log(this)
   // Extract the click location\    
   var point = d3.mouse(this)
   , p = {x: point[0], y: point[1] };
 
   // Append a new point
-  svg.append("circle")
+  d3.select(this).append("circle")
       .attr("transform", "translate(" + p.x + "," + p.y + ")")
-      .attr("r", "100")
+      .attr("r", "50")
       .attr("class", "dot")
-      .style("cursor", "pointer")
-      .call(drag);
+      .style("cursor", "pointer");
+      //.call(drag);
 }
+        
+                d3.select('#tiles').selectAll("li")
+    .data(slides)
+    .enter()
+    .append("li")
+    .append("svg").attr("width", 300).attr("height", 300).on("click", click)
+    .append("svg:image").attr("xlink:href", function(d) { return d; }).attr("width", 300).attr("height", 300);
         
         /*var svg = d3.select('#tiles').append("li").append("svg")
   .attr("width", 300)
@@ -134,7 +144,8 @@
       .attr("xlink:href", "../lecture9/slide07.jpg")
       .attr("width", 300)
       .attr("height", 300);*/
-        var svg = d3.select('#tiles').append("li").append("svg") .attr("width", 300).attr("height", 300).on("click", click);
+        
+    /*    var svg = d3.select('#tiles').append("li").append("svg") .attr("width", 300).attr("height", 300).on("click", click); 
         var gradient = svg.append("svg:defs")
     .append("svg:radialGradient")
     .attr("id", "gradient")
@@ -154,7 +165,7 @@ gradient.append("svg:stop")
     .attr("stop-color", "#FF0000")
     .attr("stop-opacity", 0);
         
-        svg.append("svg:image").attr("xlink:href", "../lecture9/slide07.jpg").attr("width", 300).attr("height", 300);
+        svg.append("svg:image").attr("xlink:href", "../lecture9/slide07.jpg").attr("width", 300).attr("height", 300); */
         
       $('#tiles').imagesLoaded(function() {
         // Prepare layout options.
