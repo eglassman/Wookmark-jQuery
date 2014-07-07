@@ -47,6 +47,7 @@
     <header>
       <h1>jQuery Wookmark Plug-in Example</h1>
       <p>Flexible: columns resize to fill the container without exceeding a maximum width.</p>
+        <p><button id="collectCirclesButton">Collect Circles</button></p>
     </header>
     <div id="main" role="main">
 
@@ -110,7 +111,7 @@
     (function ($){
         
         var slides = [ "../lecture9/slide01.jpg", "../lecture9/slide02.jpg", "../lecture9/slide03.jpg", "../lecture9/slide04.jpg", "../lecture9/slide05.jpg" ];
-        
+        var clickLocations = [];
 
         function click(){
   // Ignore the click event if it was suppressed
@@ -121,6 +122,9 @@
   var point = d3.mouse(this)
   , p = {x: point[0], y: point[1] };
 
+            clickLocations.push({x:p.x,y:p.y,svg:this.__data__})
+            console.log(clickLocations)
+            
   // Append a new point
   d3.select(this).append("circle")
       .attr("transform", "translate(" + p.x + "," + p.y + ")")
@@ -200,6 +204,10 @@ gradient.append("svg:stop")
         handler.wookmark(options);
       });
     })(jQuery);
+      
+      $('#collectCirclesButton').click(function() {
+          //d3.selectAll('.dot')
+      });
   </script>
 
 </body>
