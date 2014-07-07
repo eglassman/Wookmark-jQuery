@@ -33,8 +33,8 @@
       width: 100%;
       height: auto;
     }
-      .dot{
-    fill:url(#gradient);
+    .dot{
+    fill:rgba(255,0,0,0.5) /*url(#gradient);*/
     stroke:none
   }
   </style>
@@ -122,17 +122,26 @@
   var point = d3.mouse(this)
   , p = {x: point[0], y: point[1] };
 
-            clickLocations.push({x:p.x,y:p.y,svg:this.__data__})
-            console.log(clickLocations)
+  
             
   // Append a new point
-  d3.select(this).append("circle")
+  var justAddedCircle = d3.select(this).append("circle")
       .attr("transform", "translate(" + p.x + "," + p.y + ")")
       .attr("r", "50")
       .attr("class", "dot")
+      .style('fill','rgba(255,0,0,0.25)')
       .style("cursor", "pointer");
       //.call(drag);
-}
+            
+    userComment = prompt('Complete this sentence: This is a "muddy" part of the lecture because...');    
+    
+    if (userComment) {
+            clickLocations.push({x:p.x,y:p.y,svg:this.__data__,comment:userComment});
+    console.log(clickLocations);
+    } else {
+        d3.select(this).select(".dot").remove();
+    }
+};
         
                 d3.select('#tiles').selectAll("li")
     .data(slides)
