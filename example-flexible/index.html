@@ -47,7 +47,7 @@
     <header>
       <h1>jQuery Wookmark Plug-in Example</h1>
       <p>Flexible: columns resize to fill the container without exceeding a maximum width.</p>
-        <p><button id="collectCirclesButton">Collect Circles</button></p>
+        <!--<p><button id="collectCirclesButton">Collect Circles</button></p>-->
     </header>
     <div id="main" role="main">
 
@@ -139,7 +139,16 @@
             clickLocations.push({x:p.x,y:p.y,svg:this.__data__,comment:userComment});
     console.log(clickLocations);
     } else {
-        d3.select(this).select(".dot").remove();
+        d3.select( d3.select(this).selectAll(".dot")[0].pop() ).remove();
+        //d3.select(this).select(".dot").remove();
+        var arrayLength = clickLocations.length;
+        for (var i = 0; i < arrayLength; i++) {
+    if (Math.sqrt((Math.pow(p.x - clickLocations[i]['x'],2) + Math.pow(p.x - clickLocations[i]['y'],2))) < 20) {
+        
+        alert(clickLocations[i]['comment']);
+    }
+    //Do something
+}
     }
 };
         
